@@ -38,7 +38,7 @@ def _update_settings(source_folder, site_name):
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
-        append(secret_key_file, 'SECRET_KEY = "{}"'.format(site_name))
+        append(secret_key_file, 'SECRET_KEY = "{}"'.format(key))
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
 def _update_virtualenv(source_folder):
@@ -48,7 +48,7 @@ def _update_virtualenv(source_folder):
     run('{}/bin/pip install -r {}/requirements.txt'.format(virtualenv_folder, source_folder))
 
 def _update_static_files(source_folder):
-    run('cd {} && ../virtualenv/bin/python manage.py collectstatic --noinpit'.format(source_folder))
+    run('cd {} && ../virtualenv/bin/python manage.py collectstatic --noinput'.format(source_folder))
 
 def _update_database(source_folder):
     run('cd {} && ../virtualenv/bin/python manage.py migrate --noinput'.format(source_folder))
