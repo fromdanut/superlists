@@ -20,8 +20,8 @@ class ItemValidationTest(FunctionalTest):
         # She decides to add a second empty submit, she receives same warning.
         self.browser.find_element_by_id('id_new_item').send_keys(Keys.ENTER)
         self.wait_for(lambda: self.assertEqual(
-        self.browser.find_element_by_css_selector('.has-error').text,
-        "You can't have an empty list item"
+            self.browser.find_element_by_css_selector('.has-error').text,
+            "You can't have an empty list item"
         ))
 
         # She can correct it by filling text in.
@@ -31,4 +31,4 @@ class ItemValidationTest(FunctionalTest):
         self.wait_for_row_in_list_table('2: Make tea')
 
 
-        self.fail('write me!')
+        self.fail('End of test')
