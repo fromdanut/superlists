@@ -74,3 +74,21 @@ class ItemValidationTest(FunctionalTest):
         self.wait_for(lambda: self.assertFalse(
             self.get_error_element().is_displayed()
         ))
+
+    def test_error_messages_are_cleared_on_focus(self):
+        # Edith starts a lists and causes a validation error... again.
+        self.browser.get(self.live_server_url)
+        self.get_item_input_box().send_keys('Banter too thick')
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        self.wait_for_row_in_list_table('1: Banter too thick')
+        self.get_item_input_box().send_keys('Banter too thick')
+        self.get_item_input_box().send_keys(Keys.ENTER)
+        self.wait_for(lambda: self.assertTrue(
+            self.get_error_element().is_displayed()
+        ))
+
+        # As she clik on the input box the error message disappears.
+        self.get_item_input_box().click() # pas sur de ça
+        self.wait_for(lambda: self.assertFalse(
+            self.get_error_element().is_displayed()
+        ))

@@ -25,7 +25,13 @@
               assert.equal($('.has-error').is(':visible'), false);
           });
 
-          QUnit.test("Error aren't hidden if there is no keypress", function(assert){
+          QUnit.test("Error should be hidden on focus", function (assert) {
+              window.Superlists.initialize();
+              $('input[name="text"]').trigger('click');
+              assert.equal($('.has-error').is(':visible'), false);
+          });
+
+          QUnit.test("Error aren't hidden if there is no keypress or focus", function(assert){
               window.Superlists.initialize();
               assert.equal($('.has-error').is(':visible'), true);
           });
